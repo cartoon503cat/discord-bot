@@ -27,8 +27,17 @@ async def on_ready():
 async def on_message(message):
     if message.author == bot.user:
         return
-    if message.content.lower().strip() == "яке айпі":
+
+    content = message.content.lower().strip()
+
+    if content == "яке айпі":
         await message.reply("Айпі сервера: `play.pryklad.com`")  # Замінити на свій IP
+    elif content == "привіт":
+        await message.reply("Привіт! Як справи?")
+    elif content == "як справи?":
+        await message.reply("Все добре, дякую, що питаєш!")
+    # Тут можна додавати інші фрази...
+
     await bot.process_commands(message)
 
 if __name__ == "__main__":
