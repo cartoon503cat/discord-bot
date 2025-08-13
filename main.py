@@ -41,8 +41,6 @@ phrases = ["добраніч", "солодких снів", "надобрані�
     if any(phrase in content for phrase in phrases):
         await message.reply("Солодесеньких снів 🥰😴")
     # Тут можна додавати інші фрази...
-   if any(phrase in content for phrase in ["айпі", "ip"]):
-        await message.reply("Айпі сервера:`dragonseven.top`")
 
     await bot.process_commands(message)
 
@@ -55,6 +53,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
