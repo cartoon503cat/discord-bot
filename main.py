@@ -47,6 +47,12 @@ async def on_message(message):
         await message.reply("Солодесеньких снів 🥰😴")
         responded = True
 
+    # Реакція на айпі (кілька варіантів)
+    ip_phrases = ["яке айпі?", "яке айпі", "айпі", "ip", "IP"]
+    if not responded and any(phrase in content for phrase in ip_phrases):
+        await message.reply("Айпі сервера: `dragonseven.top`")
+        responded = True
+        
     # Тут можна додавати інші фрази...
 
     await bot.process_commands(message)
@@ -60,6 +66,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
