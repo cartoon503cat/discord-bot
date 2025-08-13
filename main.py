@@ -29,18 +29,23 @@ async def on_message(message):
         return
 
     content = message.content.lower().strip()
+    responded = False  # прапорець, чи вже відповіли
 
-    if content == "<:emoji_36:1390751091355942922>":
+    if not responded and content == "<:emoji_36:1390751091355942922>":
         await message.reply("Шо вилупився 😑")
-    if content == "жах":
+        responded = True
+    if not responded and content == "жах":
         await message.reply("який жах, який жах а що не жах, жах я ж кажу, який жах 😱")
-    if "ррр" in content:
+        responded = True
+    if not responded and "ррр" in content:
         await message.reply("Ричалочка ти 🥰")
+        responded = True
 
     # Група фраз для снів
     phrases = ["добраніч", "солодких снів", "надобраніч", "я спати", "солодесеньких снів"]
-    if any(phrase in content for phrase in phrases):
+    if not responded and any(phrase in content for phrase in phrases):
         await message.reply("Солодесеньких снів 🥰😴")
+        responded = True
 
     # Тут можна додавати інші фрази...
 
@@ -55,6 +60,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
