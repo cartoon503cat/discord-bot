@@ -40,8 +40,8 @@ async def on_message(message):
         await message.reply("Айпі сервера: `dragonseven.top`")  # Замінити на свій IP
     elif content == "<:emoji_36:1390751091355942922>":
         await message.reply("Шо вилупився")
-    elif content == "як справи?":
-        await message.reply("Все добре, дякую, що питаєш!")
+    elif content == "Пропишіть `/up` і побачите диво 😊🤩":
+        await message.reply("/up")
     # Тут можна додавати інші фрази...
 
     await bot.process_commands(message)
@@ -55,4 +55,5 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
