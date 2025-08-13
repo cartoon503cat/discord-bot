@@ -30,10 +30,16 @@ async def on_message(message):
 
     content = message.content.lower().strip()
 
+    if content == "Яке айпі?":
+        await message.reply("Айпі сервера: `dragonseven.top`")  # Замінити на свій IP
+    if content == "Яке айпі":
+        await message.reply("Айпі сервера: `dragonseven.top`")  # Замінити на свій IP
+    if content == "яке айпі?":
+        await message.reply("Айпі сервера: `dragonseven.top`")  # Замінити на свій IP
     if content == "яке айпі":
-        await message.reply("Айпі сервера: `play.pryklad.com`")  # Замінити на свій IP
-    elif content == "привіт":
-        await message.reply("Привіт! Як справи?")
+        await message.reply("Айпі сервера: `dragonseven.top`")  # Замінити на свій IP
+    elif content == "<:emoji_36:1390751091355942922>":
+        await message.reply("Шо вилупився")
     elif content == "як справи?":
         await message.reply("Все добре, дякую, що питаєш!")
     # Тут можна додавати інші фрази...
@@ -49,3 +55,4 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
