@@ -39,8 +39,9 @@ async def on_message(message):
         await message.reply("Ричалочка ти 🥰")
     if any(phrase in content for phrase in ["яке айпі", "яке айпі?"]):
         await message.reply("Айпі сервера: dragonseven.top")
-    if any(phrase in content for phrase in ["добраніч", "солодких снів", "надобраніч", "я спати"]):
-        await message.reply("Солодесеньких снів 🥰😴")
+phrases = ["добраніч", "солодких снів", "надобраніч", "я спати"]
+    if any(phrase in content for phrase in phrases):
+    await message.reply("Солодесеньких снів 🥰😴")
     # Тут можна додавати інші фрази...
 
     await bot.process_commands(message)
@@ -54,6 +55,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
