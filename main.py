@@ -35,10 +35,6 @@ async def on_message(message):
         await message.reply("Шо вилупився 😑")
     if content == "жах":
         await message.reply("який жах, який жах а що не жах, жах я ж кажу, який жах 😱")
-    if content in ("яке айпі?", "яке айпі"):
-        await message.reply("Айпі сервера: `dragonseven.top`")
-    if content in ("добраніч", "солодких снів", "надобраніч", "я спати"):
-        await message.reply("Солодесеньких снів 🥰😴")
     if "ррр" in content:
         await message.reply("Ричалочка ти 🥰")
     if any(phrase in content for phrase in ["яке айпі", "яке айпі?"]):
@@ -58,6 +54,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
