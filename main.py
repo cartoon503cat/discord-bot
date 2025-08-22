@@ -45,7 +45,7 @@ async def on_message(message):
     # ПРАВИЛА
 
     
-    if not responded and content == "правило1":
+    if not responded and content == "правило 1":
         await message.reply("**1. Усі рішення приймає виключно головна сторона (Аня – у місті, Цукерка – у селі).**")
         responded = True
 
@@ -53,7 +53,7 @@ async def on_message(message):
         await message.reply("**1. Усі рішення приймає виключно головна сторона (Аня – у місті, Цукерка – у селі).**")
         responded = True
        
-    if not responded and content == "правило2.1":
+    if not responded and content == "правило 2.1":
         await message.reply("2.1 Щоб обрати місце для будівництва, напишіть у чат <#1331393063767117874>  , і Аня покаже вам доступні райони для забудови.")
         responded = True
        
@@ -61,7 +61,7 @@ async def on_message(message):
         await message.reply("2.1 Щоб обрати місце для будівництва, напишіть у чат <#1331393063767117874>  , і Аня покаже вам доступні райони для забудови.")
         responded = True
        
-    if not responded and content == "правило3.1" in content:
+    if not responded and content == "правило 3.1" in content:
         await message.reply("3.1 Нзеценурна лайка.")
         responded = True
     
@@ -69,7 +69,7 @@ async def on_message(message):
         await message.reply("3.1 Нзеценурна лайка.")
         responded = True
 
-    if not responded and content == "правило3.2":
+    if not responded and content == "правило 3.2":
         await message.reply("3.2 Поширення фото/відео 18+.")
         responded = True
          
@@ -77,7 +77,7 @@ async def on_message(message):
         await message.reply("3.2 Поширення фото/відео 18+.")
         responded = True
        
-    if not responded and content == "правило3.3":
+    if not responded and content == "правило 3.3":
         await message.reply("3.3 Спори на тему релігії, політики або особистих уподобань.")
         responded = True
 
@@ -85,7 +85,7 @@ async def on_message(message):
         await message.reply("3.3 Спори на тему релігії, політики або особистих уподобань.")
         responded = True
 
-    if not responded and content == "правило3.4":
+    if not responded and content == "правило 3.4":
         await message.reply("3.4 Забороняється ображати інших мешканців острова або висловлюватися негативно про них.")
         responded = True
 
@@ -93,7 +93,7 @@ async def on_message(message):
         await message.reply("3.4 Забороняється ображати інших мешканців острова або висловлюватися негативно про них.")
         responded = True
 
-    if not responded and content == "правило3.5":
+    if not responded and content == "правило 3.5":
         await message.reply("3.5 Заборонені спам, флуд та інше, що заважає гармонії острова.")
         responded = True
 
@@ -101,7 +101,7 @@ async def on_message(message):
         await message.reply("3.5 Заборонені спам, флуд та інше, що заважає гармонії острова.")
         responded = True
 
-    if not responded and content == "правило3.6":
+    if not responded and content == "правило 3.6":
         await message.reply("3.6 Проявляйте повагу до кожного мешканця острова.")
         responded = True
 
@@ -109,7 +109,7 @@ async def on_message(message):
         await message.reply("3.6 Проявляйте повагу до кожного мешканця острова.")
         responded = True
 
-    if not responded and content == "правило3.7":
+    if not responded and content == "правило 3.7":
         await message.reply("3.7 Жарти, що ображають почуття, неприпустимі! Якщо вас просять зупинитися, так і зробіть.")
         responded = True
 
@@ -117,7 +117,7 @@ async def on_message(message):
         await message.reply("3.7 Жарти, що ображають почуття, неприпустимі! Якщо вас просять зупинитися, так і зробіть.")
         responded = True
 
-    if not responded and content == "правило3.8":
+    if not responded and content == "правило 3.8":
         await message.reply("3.8 Забороняється будь які образи, негативні висказування, негативні реакції у адрес адміністрації та жителів міста.")
         responded = True
 
@@ -125,7 +125,7 @@ async def on_message(message):
         await message.reply("3.8 Забороняється будь які образи, негативні висказування, негативні реакції у адрес адміністрації та жителів міста.")
         responded = True
 
-    if not responded and content == "правило3.9":
+    if not responded and content == "правило 3.9":
         await message.reply("3.10 Нік учасника обов'язково має мати букви у своєму складі, щоб утворюворювалося хоч якесь сенсове слово... Не дозволяються ніки лише з символів типу крапок, дужок, рисок, тире і так далі...")
         responded = True
 
@@ -133,7 +133,7 @@ async def on_message(message):
         await message.reply("3.10 Нік учасника обов'язково має мати букви у своєму складі, щоб утворюворювалося хоч якесь сенсове слово... Не дозволяються ніки лише з символів типу крапок, дужок, рисок, тире і так далі...")
         responded = True
 
-    if not responded and content == "правило4.1":
+    if not responded and content == "правило 4.1":
         await message.reply("4.1 Якщо вона вам не подобається, скажіть про це спокійно, і ми разом владнаємо конфлікт.")
         responded = True
 
@@ -141,7 +141,7 @@ async def on_message(message):
         await message.reply("4.1 Якщо вона вам не подобається, скажіть про це спокійно, і ми разом владнаємо конфлікт.")
         responded = True
 
-    if not responded and content == "правило4.2":
+    if not responded and content == "правило 4.2":
         await message.reply("4.2 Якщо ж ваше обурення – лише для сварки, на вас чекає миттєвий бан.")
         responded = True
 
@@ -153,7 +153,7 @@ async def on_message(message):
     #ІНФОРМАЦІЯ
 
     
-    if not responded and content == "фермазолота":
+    if not responded and content == "ферма золота":
         await message.reply(
         "**Ферма золота:**\n\n"
         "Світ: Звичайний, Незер\n\n"
@@ -187,6 +187,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
