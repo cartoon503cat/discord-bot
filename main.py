@@ -39,11 +39,7 @@ async def on_message(message):
         responded = True
     if not responded and "ррр" in content:
         await message.reply("Ричалочка ти 🥰")
-        responded = True
-    phrases = ["добраніч", "солодких снів", "надобраніч", "я спати", "солодесеньких снів"]
-    if not responded and any(phrase in content for phrase in phrases):
-        await message.reply("Солодесеньких снів 🥰😴")
-        responded = True  
+        responded = True 
         
     # ПРАВИЛА
     
@@ -176,6 +172,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
