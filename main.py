@@ -264,10 +264,8 @@ async def on_message(message):
         
     # Тут можна додавати інші фрази...
 
-
-
 # всередині on_message
-    if not responded and content.startswith("!рандом"):
+if not responded and content.startswith("!рандом"):
     # перевіримо, чи користувач написав діапазон, наприклад: !рандом 1 100
     parts = content.split()
     if len(parts) == 3:
@@ -283,8 +281,7 @@ async def on_message(message):
         number = random.randint(1, 100)
         await message.reply(f"🎲 Випадкове число від 1 до 100: {number}")
     responded = True
-
-
+ 
     await bot.process_commands(message)
 
 if __name__ == "__main__":
@@ -296,6 +293,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
