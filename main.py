@@ -33,22 +33,21 @@ async def on_message(message):
     responded = False  # прапорець, чи вже відповіли
 
     # === Рандом ===
-triggers = ["!рандом", "Випадкове число", "!random", "дай число", "кинь багатограник", "кинь кубик"]
+    if not responded and any(content.startswith(t) for t in triggers):
+        parts = content.split()
+        if len(parts) == 3:
+            try:
+                start = int(parts[1])
+                end = int(parts[2])
+                number = random.randint(start, end)
+                await message.reply(f"🎲 Випадкове число між {start} і {end}: {number}")
+            except ValueError:
+                await message.reply("Вкажіть числа у правильному форматі, наприклад: Випадкове число 1 100")
+        else:
+            number = random.randint(1, 100)
+            await message.reply(f"🎲 Випадкове число від 1 до 100: {number}")
+        responded = True
 
-if not responded and any(content.startswith(t) for t in triggers):
-    parts = content.split()
-    if len(parts) == 3:
-        try:
-            start = int(parts[1])
-            end = int(parts[2])
-            number = random.randint(start, end)
-            await message.reply(f"🎲 Випадкове число між {start} і {end}: {number}")
-        except ValueError:
-            await message.reply("Вкажіть числа у правильному форматі, наприклад: Випадкове число 1 100")
-    else:
-        number = random.randint(1, 100)
-        await message.reply(f"🎲 Випадкове число від 1 до 100: {number}")
-    responded = True
 
     if not responded and content == "<:emoji_36:1390751091355942922>":
         await message.reply("Шо вилупився 😑")
@@ -294,6 +293,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
