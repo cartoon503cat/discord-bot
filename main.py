@@ -40,6 +40,10 @@ async def on_message(message):
     if not responded and "ррр" in content:
         await message.reply("Ричалочка ти 🥰")
         responded = True
+    phrases = ["добраніч", "солодких снів", "надобраніч", "я спати", "солодесеньких снів"]
+    if not responded and any(phrase in content for phrase in phrases):
+        await message.reply("Солодесеньких снів 🥰😴")
+        responded = True  
         
     # ПРАВИЛА
     
@@ -61,7 +65,6 @@ async def on_message(message):
        
     if not responded and content == "Правило 3.1" in content:
         await message.reply("3.1 Нзеценурна лайка.")
-        responded = True
        
     if not responded and content == "3.1":
         await message.reply("3.1 Нзеценурна лайка.")
