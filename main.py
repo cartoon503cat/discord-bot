@@ -273,7 +273,7 @@ if not responded and content.startswith("!рандом"):
             start = int(parts[1])
             end = int(parts[2])
             number = random.randint(start, end)
-            await message.reply(f"🎲 Випадкове число між {start} і {end}: {number}")
+             await message.reply(f"🎲 Випадкове число між {start} і {end}: {number}")
         except ValueError:
             await message.reply("Вкажіть числа у правильному форматі, наприклад: !рандом 1 100")
     else:
@@ -293,6 +293,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
