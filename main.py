@@ -281,7 +281,7 @@ async def on_message(message):
         
     # Тут можна додавати інші фрази...
 
-await bot.process_commands(message)
+    await bot.process_commands(message)
 
 if __name__ == "__main__":
     t = threading.Thread(target=run_web)
@@ -292,4 +292,5 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
