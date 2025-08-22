@@ -3,6 +3,7 @@ import threading
 import discord
 from flask import Flask
 from discord.ext import commands
+import random
 
 app = Flask("health")
 
@@ -30,6 +31,22 @@ async def on_message(message):
 
     content = message.content.lower().strip()
     responded = False  # прапорець, чи вже відповіли
+
+    # === Рандом ===
+    if not responded and content.startswith("!рандом"):
+        parts = content.split()
+        if len(parts) == 3:
+            try:
+                start = int(parts[1])
+                end = int(parts[2])
+                number = random.randint(start, end)
+                await message.reply(f"🎲 Випадкове число між {start} і {end}: {number}")
+            except ValueError:
+                await message.reply("Вкажіть числа у правильному форматі, наприклад: !рандом 1 100")
+        else:
+            number = random.randint(1, 100)
+            await message.reply(f"🎲 Випадкове число від 1 до 100: {number}")
+        responded = True
 
     if not responded and content == "<:emoji_36:1390751091355942922>":
         await message.reply("Шо вилупився 😑")
@@ -264,25 +281,7 @@ async def on_message(message):
         
     # Тут можна додавати інші фрази...
 
-# всередині on_message
-if not responded and content.startswith("!рандом"):
-    # перевіримо, чи користувач написав діапазон, наприклад: !рандом 1 100
-    parts = content.split()
-    if len(parts) == 3:
-        try:
-            start = int(parts[1])
-            end = int(parts[2])
-            number = random.randint(start, end)
-             await message.reply(f"🎲 Випадкове число між {start} і {end}: {number}")
-        except ValueError:
-            await message.reply("Вкажіть числа у правильному форматі, наприклад: !рандом 1 100")
-    else:
-        # якщо користувач не вказав діапазон, беремо 1–100
-        number = random.randint(1, 100)
-        await message.reply(f"🎲 Випадкове число від 1 до 100: {number}")
-    responded = True
- 
-    await bot.process_commands(message)
+await bot.process_commands(message)
 
 if __name__ == "__main__":
     t = threading.Thread(target=run_web)
@@ -293,28 +292,4 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
