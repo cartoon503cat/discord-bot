@@ -33,7 +33,7 @@ async def on_message(message):
     responded = False  # прапорець, чи вже відповіли
 
     # === Рандом ===
-    triggers = ["!рандом", "Випадкове число", "!random", "Дай число", "Кинь багатограник", "Кинь кубик"]
+    triggers = ["!рандом", "випадкове число", "random", "дай число", "кинь багатограник", "кинь кубик"]
     if not responded and any(content.startswith(t) for t in triggers):
         parts = content.split()
         if len(parts) == 3:
@@ -294,6 +294,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
