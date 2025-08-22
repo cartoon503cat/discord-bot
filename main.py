@@ -61,7 +61,8 @@ async def on_message(message):
        
     if not responded and content == "Правило 3.1" in content:
         await message.reply("3.1 Нзеценурна лайка.")
-       
+        responded = True
+    
     if not responded and content == "3.1":
         await message.reply("3.1 Нзеценурна лайка.")
         responded = True
@@ -172,6 +173,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
