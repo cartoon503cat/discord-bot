@@ -35,9 +35,21 @@ async def on_message(message):
 # === Рандом ===
 
     triggers = ["!рандом", "випадкове число", "random", "дай число", "кинь багатограник", "кинь кубик"]
+
     if not responded and any(content.startswith(t) for t in triggers):
         parts = content.split()
-        if len(parts) == 3:
+
+        # Якщо перший тригер складається з двох слів (наприклад "дай число"), зсуваємо індекси
+        if len(parts) >= 4 and parts[0] + " " + parts[1] in triggers:
+            try:
+                start = int(parts[2])
+                end = int(parts[3])
+                number = random.randint(start, end)
+                await message.reply(f"🎲 Випадкове число між {start} і {end}: {number}")
+            except ValueError:
+                await message.reply("Вкажіть числа у правильному форматі, наприклад: Випадкове число 1 100")
+
+        elif len(parts) == 3:  # Для тригерів з одним словом
             try:
                 start = int(parts[1])
                 end = int(parts[2])
@@ -45,9 +57,11 @@ async def on_message(message):
                 await message.reply(f"🎲 Випадкове число між {start} і {end}: {number}")
             except ValueError:
                 await message.reply("Вкажіть числа у правильному форматі, наприклад: Випадкове число 1 100")
+
         else:
             number = random.randint(1, 100)
             await message.reply(f"🎲 Випадкове число від 1 до 100: {number}")
+
         responded = True
     
     # ПРАВИЛА
@@ -283,6 +297,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
