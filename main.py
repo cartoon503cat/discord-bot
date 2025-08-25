@@ -32,6 +32,19 @@ async def on_message(message):
     content = message.content.lower().strip()
     responded = False  # прапорець, чи вже відповіли
 
+    # === ЛІЧИЛЬНИК GIF ===
+    if message.attachments:
+        gif_attachments = [a for a in message.attachments if a.filename.lower().endswith(".gif")]
+        if gif_attachments:
+            user_id = message.author.id
+            user_gif_count[user_id] = user_gif_count.get(user_id, 0) + 1
+
+            if user_gif_count[user_id] == 3:
+                await message.reply("О, це вже твоя третя гіфка! 🎉")
+                user_gif_count[user_id] = 0  # скидаємо лічильник
+
+
+    
 # === Рандом ===
 
     triggers = ["!рандом", "випадкове число", "random", "дай число", "кинь багатограник", "кинь кубик"]
@@ -297,6 +310,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
