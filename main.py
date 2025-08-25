@@ -4,6 +4,7 @@ import discord
 from flask import Flask
 from discord.ext import commands
 import random
+import re  # для пошуку посилань
 
 app = Flask("health")
 
@@ -19,6 +20,9 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+# Лічильник GIF
+user_gif_count = {}
 
 @bot.event
 async def on_ready():
@@ -45,26 +49,24 @@ async def on_message(message):
             gif_found = True
 
     # Перевірка посилань у тексті
-    if any(domain in message.content.lower() for domain in gif_domains):
+    urls = re.findall(r'(https?://\S+)', message.content.lower())
+    if any(any(domain in url for domain in gif_domains) for url in urls):
         gif_found = True
 
-    # Якщо знайдено GIF (вкладення або посилання)
+    # Якщо знайдено GIF
     if gif_found:
         user_gif_count[user_id] = user_gif_count.get(user_id, 0) + 1
-
         if user_gif_count[user_id] == 3:
             await message.reply("Шо ти ото гіфочками засипаєш...))")
-            user_gif_count[user_id] = 0  # скидаємо лічильник
+            user_gif_count[user_id] = 0
 
-    
-# === Рандом ===
-
+    # === Рандом ===
     triggers = ["!рандом", "випадкове число", "random", "дай число", "кинь багатограник", "кинь кубик"]
 
     if not responded and any(content.startswith(t) for t in triggers):
         parts = content.split()
 
-        # Якщо перший тригер складається з двох слів (наприклад "дай число"), зсуваємо індекси
+        # Якщо перший тригер складається з двох слів
         if len(parts) >= 4 and parts[0] + " " + parts[1] in triggers:
             try:
                 start = int(parts[2])
@@ -326,6 +328,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
