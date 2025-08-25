@@ -40,7 +40,7 @@ async def on_message(message):
             user_gif_count[user_id] = user_gif_count.get(user_id, 0) + 1
 
             if user_gif_count[user_id] == 3:
-                await message.reply("О, це вже твоя третя гіфка! 🎉")
+                await message.reply("Шо ти ото гіфочками засипаєш...))")
                 user_gif_count[user_id] = 0  # скидаємо лічильник
 
 
@@ -310,6 +310,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
