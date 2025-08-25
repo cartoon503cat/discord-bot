@@ -76,7 +76,11 @@ async def on_message(message):
             await message.reply(f"🎲 Випадкове число від 1 до 100: {number}")
 
         responded = True
-    
+
+
+    if content == "<:emoji_36:1390751091355942922>": 
+        await message.reply("Шо вилупився 😑")
+        
     # ПРАВИЛА
 
     
@@ -310,6 +314,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
