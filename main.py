@@ -32,17 +32,27 @@ async def on_message(message):
     content = message.content.lower().strip()
     responded = False  # прапорець, чи вже відповіли
 
-    # === ЛІЧИЛЬНИК GIF ===
+# === ЛІЧИЛЬНИК GIF ===
+if message.attachments or message.embeds:
+    is_gif = False
+
+    # Перевірка на GIF як файл
     if message.attachments:
-        gif_attachments = [a for a in message.attachments if a.filename.lower().endswith(".gif")]
-        if gif_attachments:
-            user_id = message.author.id
-            user_gif_count[user_id] = user_gif_count.get(user_id, 0) + 1
+        if any(a.filename.lower().endswith(".gif") for a in message.attachments):
+            is_gif = True
 
-            if user_gif_count[user_id] == 3:
-                await message.reply("Шо ти ото гіфочками засипаєш...))")
-                user_gif_count[user_id] = 0  # скидаємо лічильник
+    # Перевірка на GIF-посилання (Tenor, Giphy тощо)
+    if message.embeds:
+        if any(e.type == "gifv" or (e.thumbnail and ".gif" in e.thumbnail.url) for e in message.embeds):
+            is_gif = True
 
+    if is_gif:
+        user_id = message.author.id
+        user_gif_count[user_id] = user_gif_count.get(user_id, 0) + 1
+
+        if user_gif_count[user_id] == 3:
+            await message.reply("Шо ти ото гіфочками засипаєш...))")
+            user_gif_count[user_id] = 0  # скидаємо лічильник
 
     
 # === Рандом ===
@@ -314,6 +324,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
