@@ -94,6 +94,14 @@ async def on_message(message):
 
     if content == "<:emoji_36:1390751091355942922>": 
         await message.reply("Шо вилупився 😑")
+
+    if not responded and "ррр" in content:
+        await message.reply("Ричалочка ти)) 🥰")
+        responded = True
+
+    if not responded and "мур" in content:
+        await message.reply("ти ж мій хороший))🥰")
+        responded = True
         
     # ПРАВИЛА
 
@@ -328,6 +336,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
