@@ -18,6 +18,7 @@ def run_web():
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.guilds = True  # щоб бот бачив сервера, на яких є
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
@@ -30,7 +31,8 @@ async def on_ready():
     for guild in bot.guilds:
         print(f"Вихід з сервера: {guild.name} (ID: {guild.id})")
         await guild.leave()
-    print("✅ Бот вийшов з усіх серверів.")
+    print("✅ Бот вийшов з усіх серверів. Можна знімати галочку Public Bot.")
+    await bot.close()  # вимикаємо бота після виходу
 
 @bot.event
 async def on_ready():
@@ -367,6 +369,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
