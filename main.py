@@ -26,11 +26,11 @@ user_gif_count = {}
 
 @bot.event
 async def on_ready():
-    print(f"✅ Бот увімкнений: {bot.user} — ready.")
-    print("📋 Список серверів, де знаходиться бот:")
+    print(f"✅ Бот увімкнений: {bot.user} — виходжу з усіх серверів...")
     for guild in bot.guilds:
-        print(f"- {guild.name} (ID: {guild.id})")
-
+        print(f"Вихід з сервера: {guild.name} (ID: {guild.id})")
+        await guild.leave()
+    print("✅ Бот вийшов з усіх серверів.")
 
 @bot.event
 async def on_ready():
@@ -367,6 +367,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
