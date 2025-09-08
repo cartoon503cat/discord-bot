@@ -8,7 +8,8 @@ import re  # для пошуку посилань
 import requests
 
 # ===== Hugging Face AI =====
-HF_API_KEY = "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"  # встав свій токен
+import os
+HF_API_KEY = os.getenv("HF_API_KEY")  # токен підхоплюється із змінної середовища
 HF_MODEL = "google/flan-t5-base"  # або іншу модель, яку вибрав
 
 def ask_huggingface(prompt):
@@ -391,6 +392,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
