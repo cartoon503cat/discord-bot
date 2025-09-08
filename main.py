@@ -60,6 +60,18 @@ async def on_message(message):
     content = message.content.lower().strip()
     responded = False  # прапорець, чи вже відповіли
 
+    # AI через Hugging Face
+    if content.startswith("!ai"):
+        user_input = message.content[len("!ai "):].strip()
+        if user_input:
+            await message.channel.send("Думаю... 🤖")
+            try:
+                answer = ask_huggingface(user_input)
+            except Exception as e:
+                answer = f"Помилка: {e}"
+            await message.channel.send(answer[:1900])
+
+    
     # === ЛІЧИЛЬНИК GIF ===
     gif_domains = ["tenor.com", "giphy.com", ".gif"]
 
@@ -115,13 +127,6 @@ async def on_message(message):
 
         responded = True
 
-
-if content.startswith("!ai"):
-    user_input = message.content[len("!ai "):].strip()
-    if user_input:
-        await message.channel.send("Думаю... 🤖")
-        answer = ask_huggingface(user_input)
-        await message.channel.send(answer[:1900])
 
 
 
@@ -392,6 +397,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
