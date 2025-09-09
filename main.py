@@ -132,6 +132,9 @@ async def on_message(message):
 
     if content == "<:emoji_36:1390751091355942922>": 
         await message.reply("Шо вилупився 😑")
+
+    if content == "жах": 
+        await message.reply("який жах, який жах а що не жах, жах я ж кажу, який жах 😱")
         
     if not responded and "ррр" in content:
         await message.reply("Ричалочка ти)) 🥰")
@@ -151,10 +154,6 @@ async def on_message(message):
 
     if content == "🥰": 
         await message.reply("Хто це у нас тут у сердечках купається))")
-
-    if not responded and "жах" in content:
-        await message.reply("який жах, який жах а що не жах, жах я ж кажу, який жах 😱")
-        responded = True
 
     if not responded and "ужас" in content:
         await message.reply("який жах, який жах а що не жах, жах я ж кажу, який жах 😱")
@@ -393,6 +392,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
