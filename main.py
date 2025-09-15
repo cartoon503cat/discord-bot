@@ -160,6 +160,10 @@ async def on_message(message):
         await message.reply("Так мій котику)) 😻")
         responded = True
 
+    if not responded and "Моя асистенточка)) ❤️" in content:
+        await message.reply("Так мій котику)) 😻")
+        responded = True
+
 
     # ПРАВИЛА
 
@@ -394,6 +398,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
