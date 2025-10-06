@@ -7,28 +7,6 @@ import random
 import re  # для пошуку посилань
 import requests
 
-# ===== Hugging Face AI =====
-import os
-HF_API_KEY = os.getenv("HF_API_KEY")  # токен підхоплюється із змінної середовища
-HF_MODEL = "google/flan-t5-base"  # або іншу модель, яку вибрав
-
-def ask_huggingface(prompt):
-    headers = {"Authorization": f"Bearer {HF_API_KEY}"}
-    payload = {"inputs": prompt}
-    response = requests.post(
-        f"https://api-inference.huggingface.co/models/{HF_MODEL}",
-        headers=headers,
-        json=payload
-    )
-    data = response.json()
-    if isinstance(data, list) and "generated_text" in data[0]:
-        return data[0]["generated_text"]
-    elif isinstance(data, dict) and "error" in data:
-        return f"Помилка: {data['error']}"
-    else:
-        return "Помилка: AI не зміг відповісти."
-
-
 app = Flask("health")
 
 @app.route("/")
@@ -397,6 +375,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
