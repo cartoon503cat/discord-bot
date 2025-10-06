@@ -45,12 +45,17 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+@bot.tree.command(name="ping", description="Перевіряє активність бота")
+async def ping(interaction: discord.Interaction):
+    await interaction.response.send_message("🏓 Pong! Бот працює.")
+
 # Лічильник GIF
 user_gif_count = {}
 
 @bot.event
 async def on_ready():
-    print(f"✅ Бот увімкнений: {bot.user} — ready.")
+    await bot.tree.sync()  # 🔄 реєструє / команди у Discord
+    print(f"✅ Бот увімкнений: {bot.user} — ready. Slash-команди синхронізовані.")
 
 @bot.event
 async def on_message(message):
@@ -392,6 +397,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
