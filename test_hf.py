@@ -2,10 +2,10 @@ import requests
 import os
 
 # 🔑 Твій API токен (заміни на свій з Hugging Face)
-HF_TOKEN = os.getenv("HF_TOKEN") or "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"  
+HF_TOKEN = os.getenv("HF_TOKEN") or "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"  
 
-# 🔧 Обери просту безкоштовну модель
-MODEL = "facebook/blenderbot-400M-distill"
+# 🔧 Використовуємо Granite-4.0-H-Micro
+MODEL = "ibm-granite/granite-4.0-h-micro"
 
 headers = {
     "Authorization": f"Bearer {HF_TOKEN}"
@@ -26,3 +26,4 @@ except Exception as e:
     print("❌ Помилка при отриманні відповіді!")
     print("HTTP статус:", response.status_code)
     print("Текст відповіді:", response.text)
+
