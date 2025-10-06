@@ -2,7 +2,7 @@ import requests
 import os
 
 # 🔑 Твій API токен (заміни на свій з Hugging Face)
-HF_TOKEN = os.getenv("HF_TOKEN") or "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"  
+HF_TOKEN = os.getenv("HF_TOKEN") or "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"  
 
 # 🔧 Використовуємо Granite-4.0-H-Micro
 MODEL = "ibm-granite/granite-4.0-h-micro"
