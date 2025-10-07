@@ -5,24 +5,18 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 if not HF_TOKEN:
     raise ValueError("❌ HF_TOKEN не встановлено у змінних середовища!")
 
-MODEL = "ibm-granite/granite-4.0-h-micro"
+MODEL = "INSAIT-Institute/MamayLM-Gemma-2-9B-IT-v0.1"
 headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
-data = {
-    "inputs": "Привіт! Як у тебе справи?"  # рядок, а не список словників
-}
-
-response = requests.post(f"https://api-inference.huggingface.co/models/{MODEL}", headers=headers, json=data)
-
-try:
-    result = response.json()
-    print("✅ Відповідь від моделі:")
-    if isinstance(result, list) and "generated_text" in result[0]:
-        print(result[0]["generated_text"])
+def get_model_response(prompt):
+    data = {"inputs": prompt}
+    response = requests.post(f"https://api-inference.huggingface.co/models/{MODEL}", headers=headers, json=data)
+    if response.status_code == 200:
+        return response.json()
     else:
-        print(result)
-except Exception as e:
-    print("❌ Помилка при отриманні відповіді!")
-    print("HTTP статус:", response.status_code)
-    print("Текст відповіді:", response.text)
+        return {"error": f"❌ Помилка при отриманні відповіді: {response.status_code}"}
 
+# Приклад використання
+prompt = "Привіт! Як у тебе справи?"
+result = get_model_response(prompt)
+print(result)
