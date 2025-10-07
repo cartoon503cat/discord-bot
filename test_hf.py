@@ -1,30 +1,42 @@
 import requests
-import os
 
-HF_TOKEN = os.getenv("HF_TOKEN")
-if not HF_TOKEN:
-    raise ValueError("❌ HF_TOKEN не встановлено у змінних середовища!")
+def ask_free_ai(prompt: str) -> str:
+    """
+    Відправляє запит до безкоштовної AI API (LiteLLM proxy).
+    Повертає відповідь, подібну до OpenAI ChatGPT.
+    """
+    try:
+        response = requests.post(
+            "https://api.litellm.ai/chat/completions",
+            json={
+                "model": "mistral",  # також доступні: "gpt-3.5-turbo", "phi-3-mini", "llama-3"
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.7
+            },
+            timeout=30
+        )
 
-MODEL = "d0p3/ukr-t5-small"  # назва моделі на Hugging Face
-API_URL = f"https://api-inference.huggingface.co/models/{MODEL}"
+        if response.status_code == 200:
+            data = response.json()
+            return data["choices"][0]["message"]["content"].strip()
+        else:
+            return f"⚠️ Помилка: {response.status_code} — {response.text}"
 
-headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+    except Exception as e:
+        return f"❌ Виникла помилка: {e}"
 
-def get_model_response(prompt):
-    data = {"inputs": prompt, "parameters": {"max_new_tokens": 100}}
-    response = requests.post(API_URL, headers=headers, json=data)
 
-    if response.status_code == 200:
-        result = response.json()
-        if isinstance(result, list) and "generated_text" in result[0]:
-            return result[0]["generated_text"]
-        return result
-    else:
-        return {"error": f"❌ Помилка: {response.status_code}", "text": response.text}
-
-# Приклад
 if __name__ == "__main__":
-    prompt = "Привіт! Як у тебе справи?"
-    print(get_model_response(prompt))
+    print("🤖 Тест безкоштовного AI")
+    while True:
+        user_input = input("\nВведи запит (або 'вихід'): ").strip()
+        if user_input.lower() in ["вихід", "exit", "quit"]:
+            print("👋 Завершення роботи.")
+            break
+
+        print("\nДумаю...\n")
+        answer = ask_free_ai(user_input)
+        print("💬 Відповідь:\n", answer)
+
 
 
