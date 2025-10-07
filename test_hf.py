@@ -1,37 +1,32 @@
 import requests
 import json
 
-print("🤖 Тест безкоштовної AI-моделі через mlvoca.com")
+print("🤖 Тест безкоштовної AI-моделі — альтернативний endpoint")
 
-# Безкоштовний публічний endpoint
-MODEL_URL = "https://mlvoca.com/api/generate"
+# Альтернативний безкоштовний endpoint
+MODEL_URL = "https://free.llm.garden/llm"
 
-# Твій запит до моделі
-prompt = "Привіт! Розкажи коротко про себе українською мовою."
+prompt = "Привіт! Розкажи про себе коротко українською."
 
-# Дані, які відправляються у запиті
 payload = {
-    "model": "tinyllama",   # Можна спробувати: "deepseek-r1:1.5b", "mistral", "phi3"
+    "model": "gpt2-xl",  # модель, можливо легша — “gpt2-xl”, “gpt2-large” тощо
     "prompt": prompt,
-    "stream": False          # False — щоб отримати весь текст одразу
+    "max_new_tokens": 100,
+    "temperature": 0.7
 }
 
-# Відправлення запиту
 try:
     print("⏳ Відправляю запит...")
     response = requests.post(MODEL_URL, json=payload, timeout=60)
 
     if response.status_code == 200:
-        try:
-            data = response.json()
-            text = data.get("response") or data.get("text") or str(data)
-        except json.JSONDecodeError:
-            text = response.text
-
+        data = response.json()
+        # Залежно від формату відповіді
+        text = data.get("text") or data.get("response") or json.dumps(data)
         print("\n✅ Відповідь AI:")
         print(text.strip())
     else:
-        print(f"\n❌ Помилка: {response.status_code} {response.text}")
+        print(f"\n❌ Помилка: {response.status_code} — {response.text}")
 
 except Exception as e:
     print(f"\n🚨 Виникла помилка: {e}")
