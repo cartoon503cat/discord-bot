@@ -1,50 +1,48 @@
-# bot.py
 import os
 import discord
-import requests
+import aiohttp
+import asyncio
 
-from discord.ext import commands
-
-# Витягуємо токени з Environment Variables
+# Токени з секретів Replit
 DISCORD_TOKEN = os.environ["TOKEN"]
-OPENROUTER_API_KEY = os.environ["OPENROUTER_API_KEY"]
+HF_TOKEN = os.environ["HF_TOKEN"]
 
-# Створюємо бота
+# Hugging Face модель — безкоштовна, текстова, легка
+HF_MODEL = "mistralai/Mistral-7B-Instruct-v0.2"
+
 intents = discord.Intents.default()
+intents.messages = True
 intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
 
-# Функція для звернення до OpenRouter API
-def ask_openrouter(prompt: str) -> str:
-    url = "https://api.openrouter.ai/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "gpt-4o-mini",  # Легка, безкоштовна модель
-        "messages": [
-            {"role": "system", "content": "Ви допомагаєте користувачу українською."},
-            {"role": "user", "content": prompt}
-        ],
-        "temperature": 0.7
-    }
+client = discord.Client(intents=intents)
 
-    try:
-        response = requests.post(url, headers=headers, json=payload, timeout=15)
-        response.raise_for_status()
-        data = response.json()
-        return data["choices"][0]["message"]["content"]
-    except Exception as e:
-        return f"Помилка при зверненні до OpenRouter: {e}"
+async def generate_response(prompt):
+    url = f"https://api-inference.huggingface.co/models/{HF_MODEL}"
+    headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+    data = {"inputs": prompt, "parameters": {"max_new_tokens": 200}}
 
-# Команда для чату з AI
-@bot.command(name="ai")
-async def ai_chat(ctx, *, question: str):
-    await ctx.send("🤖 Думка AI...")
-    answer = ask_openrouter(question)
-    await ctx.send(answer)
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, headers=headers, json=data) as response:
+            result = await response.json()
+            try:
+                text = result[0]["generated_text"]
+                return text
+            except Exception:
+                return "😕 Вибач, але модель не відповіла або перевантажена."
 
-# Старт бота
-bot.run(DISCORD_TOKEN)
+@client.event
+async def on_ready():
+    print(f"✅ Увійшов як {client.user}")
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    # Якщо користувач написав команду з префіксом !
+    if message.content.startswith("!ai"):
+        prompt = message.content[len("!ai "):].strip()
+        if not prompt:
+            await message.channel.send("Напиши щось після `!ai`, наприклад: `!ai Привіт, хто ти?`")
+            return
 
