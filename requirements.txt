@@ -1,5 +1,7 @@
 discord.py
 
+gpt4all
 Flask
 
 requests
+
