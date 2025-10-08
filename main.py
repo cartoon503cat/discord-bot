@@ -3,7 +3,7 @@ import discord
 import asyncio
 import aiohttp
 
-TOKEN = os.environ["DISCORD_TOKEN"]
+TOKEN = os.environ["TOKEN"]
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")  # API ключ Google, якщо потрібен
 
 intents = discord.Intents.default()
@@ -52,4 +52,5 @@ async def on_message(message):
         await message.channel.send(resp)
 
 client.run(TOKEN)
+
 
