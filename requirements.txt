@@ -1,9 +1,10 @@
 discord.py
 
-gpt4all
+llama-cpp-python
 
 Flask
 
 requests
+
 
 
