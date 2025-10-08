@@ -16,7 +16,7 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 
 async def query_gemini(prompt: str) -> str:
-    url = "https://api.generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText"
+    url = "https://generativelanguage.googleapis.com/v1beta/models/text-bison-001:generateText"
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {GOOGLE_API_KEY}"
