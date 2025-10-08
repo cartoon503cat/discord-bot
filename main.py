@@ -17,7 +17,7 @@ client = discord.Client(intents=intents)
 
 async def query_gemini(prompt: str) -> str:
     # ✅ Правильний URL — ключ додається в кінець як параметр ?key=
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/text-bison-001:generateText?key={GOOGLE_API_KEY}"
+    url = f"https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key={GOOGLE_API_KEY}"
     headers = {"Content-Type": "application/json"}  # без Authorization!
     
     body = {
@@ -71,5 +71,6 @@ def run_flask():
 if __name__ == "__main__":
     threading.Thread(target=run_flask).start()
     client.run(TOKEN)
+
 
 
