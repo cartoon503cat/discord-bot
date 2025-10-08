@@ -1,10 +1,11 @@
 discord.py
 
-llama-cpp-python
+aiohttp
 
 Flask
 
 requests
+
 
 
 
