@@ -9,23 +9,23 @@ import threading
 # Discord бот
 # ==========================
 TOKEN = os.environ["TOKEN"]
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")  # API ключ Google, якщо потрібен
+GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")  # API ключ Google
 
 intents = discord.Intents.default()
 intents.message_content = True
 client = discord.Client(intents=intents)
 
 async def query_gemini(prompt: str) -> str:
-    url = "https://generativelanguage.googleapis.com/v1beta/models/text-bison-001:generateText"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {GOOGLE_API_KEY}"
-    }
+    # ✅ Правильний URL — ключ додається в кінець як параметр ?key=
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/text-bison-001:generateText?key={GOOGLE_API_KEY}"
+    headers = {"Content-Type": "application/json"}  # без Authorization!
+    
     body = {
         "prompt": {"text": prompt},
         "temperature": 0.7,
         "candidateCount": 1
     }
+
     async with aiohttp.ClientSession() as session:
         async with session.post(url, headers=headers, json=body) as resp:
             if resp.status != 200:
@@ -69,7 +69,7 @@ def run_flask():
 # Запуск Flask + Discord
 # ==========================
 if __name__ == "__main__":
-    threading.Thread(target=run_flask).start()  # Flask у окремому потоці
+    threading.Thread(target=run_flask).start()
     client.run(TOKEN)
 
 
