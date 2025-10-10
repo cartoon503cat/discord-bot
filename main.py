@@ -132,7 +132,7 @@ async def on_message(message):
         responded = True
 
     if not responded and "🙄" in content:
-        await message.reply("Шо ти ото ті тапки постійно кидаєш...))")
+        await message.reply("Оці твої закатні очки це просто щось))")
         responded = True
         
     if not responded and "🩰" in content:
@@ -383,6 +383,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
