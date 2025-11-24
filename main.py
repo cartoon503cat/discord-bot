@@ -157,8 +157,11 @@ async def on_message(message):
     # ПРАВИЛА
 
     
-    if not responded and content == "правило 1":
-        await message.reply("🧭 1. **Головна сторона**/n/n 1.1 Усі важливі рішення приймає **"Аня" та "Цукерка".**")
+    if not responded and content == "ферма ключів":
+        await message.reply(
+        "🧭 1. **Головна сторона**\n\n"
+        "1.1 Усі важливі рішення приймає **"Аня" та "Цукерка".**"
+        )
         responded = True
 
     if not responded and content == "1":
@@ -387,6 +390,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
