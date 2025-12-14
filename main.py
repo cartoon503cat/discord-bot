@@ -150,11 +150,15 @@ async def on_message(message):
     if bot.user.mentioned_in(message):
         await message.reply("Так моя кицюня)) 😻")
 
-    if not responded and "смачного" in content:
+    if not responded and "їсти" in content:
         await message.reply("І тобі приємного, моя карамелько 🍭😋🍬")
         responded = True
 
-    if not responded and "приємного" in content:
+    if not responded and "їстки" in content:
+        await message.reply("І тобі приємного, моя карамелько 🍭😋🍬")
+        responded = True
+
+    if not responded and "їстоньки" in content:
         await message.reply("І тобі приємного, моя карамелько 🍭😋🍬")
         responded = True
 
@@ -470,6 +474,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
