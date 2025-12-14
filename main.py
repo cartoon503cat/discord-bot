@@ -368,6 +368,22 @@ async def on_message(message):
         "Координати: `269 128 37` (стеля незеру)"
         )
         responded = True
+
+    if not responded and content == "ферма свинини":
+        await message.reply(
+        "**Ферма їжі (смажена свинина)**\n\n"
+        "Світ: Незер\n\n"
+        "Координати: `269 128 37` (стеля незеру)"
+        )
+        responded = True
+
+    if not responded and content == "ферма саженої свинини":
+        await message.reply(
+        "**Ферма їжі (смажена свинина)**\n\n"
+        "Світ: Незер\n\n"
+        "Координати: `269 128 37` (стеля незеру)"
+        )
+        responded = True
         
     if not responded and content == "ферма жаб’ячого світла":
         await message.reply(
@@ -474,6 +490,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
