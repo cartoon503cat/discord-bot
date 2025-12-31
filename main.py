@@ -28,27 +28,13 @@ GUILD_ID = 1330237315637055540
 
 # 🔊 ДЛЯ ГОЛОСОВИХ КАНАЛІВ
 
-@bot.event
-async def on_ready():
-    await bot.tree.sync()  # 🔄 реєструє / команди у Discord
-    print(f"✅ Бот увімкнений: {bot.user} — ready. Slash-команди синхронізовані.")
-
-# Slash-команда для перевірки пінгу
-@bot.tree.command(
-    name="ping",
-    description="Перевіряє активність бота",
-    guild=discord.Object(id=GUILD_ID)
-)
-async def ping(interaction: discord.Interaction):
-    await interaction.response.send_message("🏓 Pong! Бот працює.")
-
-# Slash-команда для приєднання до голосового каналу
 @bot.tree.command(
     name="приєднайся",
     description="Бот приєднується до твого голосового каналу",
-    guild=discord.Object(id=GUILD_ID)
+    guild=discord.Object(id=GUILD_ID)  # локальна команда для швидкої появи
 )
 async def join_voice(interaction: discord.Interaction):
+    # Перевірка, чи користувач у голосовому каналі
     if interaction.user.voice is None:
         await interaction.response.send_message(
             "❌ Ти повинен бути у голосовому каналі!",
@@ -58,6 +44,7 @@ async def join_voice(interaction: discord.Interaction):
 
     channel = interaction.user.voice.channel
 
+    # Перевірка, чи бот уже у голосовому каналі
     if interaction.guild.voice_client:
         await interaction.response.send_message(
             "🔊 Я вже у голосовому каналі!",
@@ -65,10 +52,12 @@ async def join_voice(interaction: discord.Interaction):
         )
         return
 
+    # Підключення до каналу
     await channel.connect()
     await interaction.response.send_message(
         f"✅ Зайшов у голосовий канал **{channel.name}**"
     )
+
 
 # Лічильник GIF
 user_gif_count = {}
@@ -518,6 +507,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
