@@ -23,6 +23,12 @@ intents.voice_states = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+@bot.event
+async def on_ready():
+    await bot.tree.sync()
+    print(f"Бот запущений як {bot.user}")
+
+
 @bot.tree.command(name="ping", description="Перевіряє активність бота")
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("🏓 Pong! Бот працює.")
@@ -476,6 +482,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
