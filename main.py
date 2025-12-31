@@ -22,15 +22,16 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.voice_states = True  
 
+bot = commands.Bot(command_prefix="!", intents=intents)
+
 GUILD_ID = 1330237315637055540
+
+# 🔊 ДЛЯ ГОЛОСОВИХ КАНАЛІВ
 
 @bot.event
 async def on_ready():
     await bot.tree.sync()  # 🔄 реєструє / команди у Discord
     print(f"✅ Бот увімкнений: {bot.user} — ready. Slash-команди синхронізовані.")
-
-
-# 🔊 ДЛЯ ГОЛОСОВИХ КАНАЛІВ
 
 # Slash-команда для перевірки пінгу
 @bot.tree.command(
@@ -517,6 +518,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
