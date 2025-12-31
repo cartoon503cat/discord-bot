@@ -20,12 +20,33 @@ def run_web():
 intents = discord.Intents.default()
 intents.message_content = True
 
+# === INTENTS ===
+intents = discord.Intents.default()
+intents.message_content = True
+intents.voice_states = True  # 🔊 ДЛЯ ГОЛОСОВИХ КАНАЛІВ
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.tree.command(name="ping", description="Перевіряє активність бота")
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("🏓 Pong! Бот працює.")
+
+# === JOIN VOICE COMMAND ===
+@bot.command()
+async def join(ctx):
+    if ctx.author.voice is None:
+        await ctx.send("❌ Ти повинен бути у голосовому каналі!")
+        return
+
+    channel = ctx.author.voice.channel
+
+    if ctx.voice_client:
+        await ctx.send("🔊 Я вже у голосовому каналі!")
+    else:
+        await channel.connect()
+        await ctx.send(f"✅ Зайшов у голосовий канал **{channel.name}**")
+
+
 
 # Лічильник GIF
 user_gif_count = {}
@@ -490,6 +511,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
