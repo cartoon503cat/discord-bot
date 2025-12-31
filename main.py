@@ -16,27 +16,24 @@ def home():
 def run_web():
     port = int(os.getenv("PORT", "5000"))
     app.run(host="0.0.0.0", port=port)
-    
+
 intents = discord.Intents.default()
 intents.message_content = True
-intents.voice_states = True  
+
 
 bot = commands.Bot(command_prefix="!", intents=intents)
-
-@bot.event
-async def on_ready():
-    await bot.tree.sync()
-    print(f"Бот запущений як {bot.user}")
-
 
 @bot.tree.command(name="ping", description="Перевіряє активність бота")
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("🏓 Pong! Бот працює.")
 
-
 # Лічильник GIF
 user_gif_count = {}
 
+@bot.event
+async def on_ready():
+    await bot.tree.sync()  # 🔄 реєструє / команди у Discord
+    print(f"✅ Бот увімкнений: {bot.user} — ready. Slash-команди синхронізовані.")
 
 @bot.event
 async def on_message(message):
@@ -45,6 +42,17 @@ async def on_message(message):
 
     content = message.content.lower().strip()
     responded = False  # прапорець, чи вже відповіли
+
+    # AI через Hugging Face
+    if content.startswith("!ai"):
+        user_input = message.content[len("!ai "):].strip()
+        if user_input:
+            await message.channel.send("Думаю... 🤖")
+            try:
+                answer = ask_huggingface(user_input)
+            except Exception as e:
+                answer = f"Помилка: {e}"
+            await message.channel.send(answer[:1900])
 
     
     # === ЛІЧИЛЬНИК GIF ===
@@ -482,7 +490,6 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
-
 
 
 
