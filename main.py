@@ -32,7 +32,7 @@ async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("🏓 Pong! Бот працює.")
 
 # === JOIN VOICE COMMAND ===
-@bot.command(name="Приєднайся")
+@bot.command(name="приєднайся")
 async def pryyednaysya(ctx):
     if ctx.author.voice is None:
         await ctx.send("❌ Ти повинен бути у голосовому каналі!")
@@ -509,6 +509,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
