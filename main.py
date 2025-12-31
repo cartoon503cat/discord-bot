@@ -17,53 +17,15 @@ def run_web():
     port = int(os.getenv("PORT", "5000"))
     app.run(host="0.0.0.0", port=port)
     
-# === INTENTS ===
 intents = discord.Intents.default()
 intents.message_content = True
 intents.voice_states = True  
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-GUILD_ID = 1330237315637055540
-
-# 🔊 ДЛЯ ГОЛОСОВИХ КАНАЛІВ
-
-
-@bot.event
-async def on_ready():
-    guild = discord.Object(id=GUILD_ID)  # локальна синхронізація команд
-    await bot.tree.sync(guild=guild)
-    print(f"✅ Бот увімкнений: {bot.user}. Команди синхронізовані для сервера {GUILD_ID}.")
-
-@bot.tree.command(
-    name="приєднайся",
-    description="Бот приєднується до твого голосового каналу",
-    guild=discord.Object(id=GUILD_ID)  # локальна команда для швидкої появи
-)
-async def join_voice(interaction: discord.Interaction):
-    # Перевірка, чи користувач у голосовому каналі
-    if interaction.user.voice is None:
-        await interaction.response.send_message(
-            "❌ Ти повинен бути у голосовому каналі!",
-            ephemeral=True
-        )
-        return
-
-    channel = interaction.user.voice.channel
-
-    # Перевірка, чи бот уже у голосовому каналі
-    if interaction.guild.voice_client:
-        await interaction.response.send_message(
-            "🔊 Я вже у голосовому каналі!",
-            ephemeral=True
-        )
-        return
-
-    # Підключення до каналу
-    await channel.connect()
-    await interaction.response.send_message(
-        f"✅ Зайшов у голосовий канал **{channel.name}**"
-    )
+@bot.tree.command(name="ping", description="Перевіряє активність бота")
+async def ping(interaction: discord.Interaction):
+    await interaction.response.send_message("🏓 Pong! Бот працює.")
 
 
 # Лічильник GIF
@@ -514,6 +476,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
