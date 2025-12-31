@@ -22,15 +22,25 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.voice_states = True  
 
+GUILD_ID = 1330237315637055540
+
 # 🔊 ДЛЯ ГОЛОСОВИХ КАНАЛІВ
 
-bot = commands.Bot(command_prefix="!", intents=intents)
-
-@bot.tree.command(name="ping", description="Перевіряє активність бота")
+# Slash-команда для перевірки пінгу
+@bot.tree.command(
+    name="ping",
+    description="Перевіряє активність бота",
+    guild=discord.Object(id=GUILD_ID)
+)
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("🏓 Pong! Бот працює.")
 
-@bot.tree.command(name="приєднайся", description="Бот приєднується до твого голосового каналу")
+# Slash-команда для приєднання до голосового каналу
+@bot.tree.command(
+    name="приєднайся",
+    description="Бот приєднується до твого голосового каналу",
+    guild=discord.Object(id=GUILD_ID)
+)
 async def join_voice(interaction: discord.Interaction):
     if interaction.user.voice is None:
         await interaction.response.send_message(
@@ -68,17 +78,6 @@ async def on_message(message):
 
     content = message.content.lower().strip()
     responded = False  # прапорець, чи вже відповіли
-
-    # AI через Hugging Face
-    if content.startswith("!ai"):
-        user_input = message.content[len("!ai "):].strip()
-        if user_input:
-            await message.channel.send("Думаю... 🤖")
-            try:
-                answer = ask_huggingface(user_input)
-            except Exception as e:
-                answer = f"Помилка: {e}"
-            await message.channel.send(answer[:1900])
 
     
     # === ЛІЧИЛЬНИК GIF ===
@@ -516,6 +515,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
