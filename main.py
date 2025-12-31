@@ -24,6 +24,12 @@ intents.voice_states = True
 
 GUILD_ID = 1330237315637055540
 
+@bot.event
+async def on_ready():
+    await bot.tree.sync()  # 🔄 реєструє / команди у Discord
+    print(f"✅ Бот увімкнений: {bot.user} — ready. Slash-команди синхронізовані.")
+
+
 # 🔊 ДЛЯ ГОЛОСОВИХ КАНАЛІВ
 
 # Slash-команда для перевірки пінгу
@@ -66,10 +72,6 @@ async def join_voice(interaction: discord.Interaction):
 # Лічильник GIF
 user_gif_count = {}
 
-@bot.event
-async def on_ready():
-    await bot.tree.sync()  # 🔄 реєструє / команди у Discord
-    print(f"✅ Бот увімкнений: {bot.user} — ready. Slash-команди синхронізовані.")
 
 @bot.event
 async def on_message(message):
@@ -515,6 +517,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
