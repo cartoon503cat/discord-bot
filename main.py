@@ -44,7 +44,7 @@ async def go(interaction: discord.Interaction):
         await channel.connect()
 
     await interaction.response.send_message(
-        f"🎧 Кицюнь, я вже у **{channel.name}** 😻"
+        f"🎧 Сонечко, я вже у **{channel.name}** 😻"
     )
 
 
@@ -511,6 +511,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
