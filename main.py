@@ -27,6 +27,27 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 async def ping(interaction: discord.Interaction):
     await interaction.response.send_message("🏓 Pong! Бот працює.")
 
+@bot.tree.command(name="go", description="Бот приєднується до вашого голосового каналу")
+async def go(interaction: discord.Interaction):
+    if not interaction.user.voice or not interaction.user.voice.channel:
+        await interaction.response.send_message(
+            "❌ Ти не у голосовому каналі.",
+            ephemeral=True
+        )
+        return
+
+    channel = interaction.user.voice.channel
+
+    if interaction.guild.voice_client:
+        await interaction.guild.voice_client.move_to(channel)
+    else:
+        await channel.connect()
+
+    await interaction.response.send_message(
+        f"🎧 Я приєднався до **{channel.name}**"
+    )
+
+
 # Лічильник GIF
 user_gif_count = {}
 
@@ -490,6 +511,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
