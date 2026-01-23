@@ -32,7 +32,6 @@ async def go(interaction: discord.Interaction):
     if not interaction.user.voice or not interaction.user.voice.channel:
         await interaction.response.send_message(
             "Отакої, я передивилвся усі голосві тебе ніде нема, дарма кликав, усьо я образилась 🥺",
-            ephemeral=True
         )
         return
 
@@ -511,6 +510,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
