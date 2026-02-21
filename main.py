@@ -63,6 +63,17 @@ async def on_message(message):
     content = message.content.lower().strip()
     responded = False  # прапорець, чи вже відповіли
 
+
+    # === ПІНГ БОТА (випадкова відповідь) ===
+    if not responded and bot.user in message.mentions:
+        replies = [
+            "Привіт 👋",
+            "Що хотів? 😏"
+        ]
+        await message.reply(random.choice(replies))
+        responded = True
+
+    
     # AI через Hugging Face
     if content.startswith("!ai"):
         user_input = message.content[len("!ai "):].strip()
@@ -166,9 +177,6 @@ async def on_message(message):
     if content == "🥰": 
         await message.reply("Хто це у нас тут у сердечках купається))")
         responded = True  
-        
-    if bot.user.mentioned_in(message):
-        await message.reply("Так моя кицюня)) 😻")
 
     if not responded and "їсти" in content:
         await message.reply("І тобі приємного, моя карамелько 🍭😋🍬")
@@ -510,6 +518,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
