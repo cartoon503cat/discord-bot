@@ -63,15 +63,42 @@ async def on_message(message):
     content = message.content.lower().strip()
     responded = False  # прапорець, чи вже відповіли
 
-
-    # === ПІНГ БОТА (випадкова відповідь) ===
+    # === ПІНГ БОТА з логікою питання ===
     if not responded and bot.user in message.mentions:
+
         replies = [
-            "Привіт 👋",
-            "Що хотів? 😏"
+            "Безперечно так",
+            "Це точно",
+            "Без сумнівів",
+            "Так — однозначно",
+            "Можеш покладатися на це",
+            "Як я бачу — так",
+            "Найімовірніше",
+            "Прогноз хороший",
+            "Так",
+            "Знаки кажуть «так»",
+            "Відповідь нечітка, спробуй знову",
+            "Запитай пізніше",
+            "Краще не казати зараз",
+            "Неможливо передбачити зараз",
+            "Зосередься і запитай ще раз",
+            "Не розраховуй на це",
+            "Моя відповідь — ні",
+            "Джерела кажуть «ні»",
+            "Перспективи не дуже хороші",
+            "Дуже сумнівно"
         ]
-        await message.reply(random.choice(replies))
+
+        if "?" in message.content:
+            await message.reply(random.choice(replies))
+        else:
+            await message.reply("Так моя кицюня)) 😻")
+
         responded = True
+
+    await bot.process_commands(message)
+
+
 
     
     # AI через Hugging Face
@@ -514,6 +541,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
