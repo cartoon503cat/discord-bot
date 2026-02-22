@@ -6,6 +6,8 @@ from discord.ext import commands
 import random
 import re  # для пошуку посилань
 import requests
+import json
+import base64
 
 app = Flask("health")
 
@@ -22,6 +24,99 @@ intents.message_content = True
 
 
 bot = commands.Bot(command_prefix="!", intents=intents)
+
+
+
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+REPO = "USERNAME/REPO"   # <-- зміни
+FILE_PATH = "pets.json"
+BRANCH = "main"
+
+pets_list = ["Кіт 🐱", "Пес 🐶", "Лисиця 🦊", "Дракон 🐉"]
+
+
+def get_file():
+    url = f"https://api.github.com/repos/{REPO}/contents/{FILE_PATH}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+
+    r = requests.get(url, headers=headers).json()
+
+    content = base64.b64decode(r["content"]).decode()
+    sha = r["sha"]
+
+    return json.loads(content), sha
+
+
+def update_file(data, sha):
+    url = f"https://api.github.com/repos/{REPO}/contents/{FILE_PATH}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+
+    content = base64.b64encode(json.dumps(data, indent=4).encode()).decode()
+
+    payload = {
+        "message": "update pets",
+        "content": content,
+        "sha": sha,
+        "branch": BRANCH
+    }
+
+    requests.put(url, headers=headers, json=payload)
+
+
+@bot.tree.command(name="petopen", description="Отримати питомця")
+async def petopen(interaction: discord.Interaction):
+    data, sha = get_file()
+    user = str(interaction.user.id)
+
+    if user in data:
+        await interaction.response.send_message("У тебе вже є питомец")
+        return
+
+    pet = random.choice(pets_list)
+    data[user] = {"name": pet, "level": 1, "xp": 0}
+    update_file(data, sha)
+
+    await interaction.response.send_message(f"🎁 Ти отримав питомця: {pet}")
+
+
+@bot.tree.command(name="pet", description="Подивитись питомця")
+async def pet(interaction: discord.Interaction):
+    data, _ = get_file()
+    user = str(interaction.user.id)
+
+    if user not in data:
+        await interaction.response.send_message("У тебе немає питомця 😢")
+        return
+
+    pet = data[user]
+    await interaction.response.send_message(
+        f"🐾 {pet['name']} | Рівень {pet['level']} | XP {pet['xp']}"
+    )
+
+
+@bot.tree.command(name="petfeed", description="Погодувати питомця")
+async def petfeed(interaction: discord.Interaction):
+    data, sha = get_file()
+    user = str(interaction.user.id)
+
+    if user not in data:
+        await interaction.response.send_message("У тебе немає питомця")
+        return
+
+    pet = data[user]
+    xp_gain = random.randint(5, 15)
+    pet["xp"] += xp_gain
+
+    if pet["xp"] >= 50:
+        pet["level"] += 1
+        pet["xp"] = 0
+        msg = f"{pet['name']} підвищив рівень ⭐ {pet['level']}"
+    else:
+        msg = f"{pet['name']} отримав {xp_gain} XP"
+
+    update_file(data, sha)
+    await interaction.response.send_message(msg)
+
 
 @bot.tree.command(name="ping", description="Перевіряє активність бота")
 async def ping(interaction: discord.Interaction):
@@ -541,6 +636,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
