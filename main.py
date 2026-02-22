@@ -28,7 +28,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-REPO = "USERNAME/REPO"   # <-- зміни
+REPO = "cartoon503cat/discord-bot"   # <-- зміни
 FILE_PATH = "pets.json"
 BRANCH = "main"
 
@@ -636,6 +636,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
