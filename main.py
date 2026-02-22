@@ -56,11 +56,17 @@ def update_file(data, sha):
     payload = {
         "message": "update pets",
         "content": content,
-        "sha": sha,
         "branch": BRANCH
     }
 
-    requests.put(url, headers=headers, json=payload)
+    if sha:
+        payload["sha"] = sha
+
+    r = requests.put(url, headers=headers, json=payload)
+
+    print("GitHub PUT:", r.status_code)
+    print("GitHub PUT response:", r.text)
+
 
 
 @bot.tree.command(name="petopen", description="Отримати питомця")
@@ -636,6 +642,7 @@ if __name__ == "__main__":
         print("⛔ ERROR: TOKEN не знайдено в ENV")
     else:
         bot.run(TOKEN)
+
 
 
 
