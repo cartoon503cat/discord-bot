@@ -646,7 +646,7 @@ async def on_message(message):
     # Реакція на айпі (кілька варіантів)
     ip_phrases = ["яке айпі?", "яке айпі", "айпі", "ip"]
     if not responded and any(phrase in content for phrase in ip_phrases):
-        await message.reply("Айпі сервера: `dragonseven.top`")
+        await message.reply("Айпі сервера: `caramel.pp.ua`")
         responded = True
         
     # Тут можна додавати інші фрази...
