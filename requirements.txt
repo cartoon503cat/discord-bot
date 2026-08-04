@@ -1,5 +1,5 @@
 discord.py
-PyNaCl
+davey
 Flask
 requests
 
