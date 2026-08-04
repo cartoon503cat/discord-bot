@@ -167,13 +167,6 @@ async def go(interaction: discord.Interaction):
         f"🎧 Сонечко, я вже у **{channel.name}** 😻"
     )
 
-    except Exception as e:
-        print(e)
-        await interaction.response.send_message(
-            f"Помилка:\n```{e}```",
-            ephemeral=True
-        )
-
 
 # Лічильник GIF
 user_gif_count = {}
