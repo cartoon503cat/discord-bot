@@ -150,22 +150,28 @@ async def ping(interaction: discord.Interaction):
 
 @bot.tree.command(name="go", description="Бот приєднується до вашого голосового каналу")
 async def go(interaction: discord.Interaction):
-    if not interaction.user.voice or not interaction.user.voice.channel:
+    try:
+        if not interaction.user.voice:
+            await interaction.response.send_message("Ти не у голосовому каналі.")
+            return
+
+        channel = interaction.user.voice.channel
+
+        if interaction.guild.voice_client:
+            await interaction.guild.voice_client.move_to(channel)
+        else:
+            await channel.connect()
+
         await interaction.response.send_message(
-            "Отакої, я передивилвся усі голосві тебе ніде нема, дарма кликав, усьо я образилась 🥺",
+            f"🎧 Я вже у **{channel.name}**"
         )
-        return
 
-    channel = interaction.user.voice.channel
-
-    if interaction.guild.voice_client:
-        await interaction.guild.voice_client.move_to(channel)
-    else:
-        await channel.connect()
-
-    await interaction.response.send_message(
-        f"🎧 Сонечко, я вже у **{channel.name}** 😻"
-    )
+    except Exception as e:
+        print(e)
+        await interaction.response.send_message(
+            f"Помилка:\n```{e}```",
+            ephemeral=True
+        )
 
 
 # Лічильник GIF
