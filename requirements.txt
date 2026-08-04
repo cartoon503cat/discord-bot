@@ -2,7 +2,7 @@ discord.py
 davey
 Flask
 requests
-
+PyNaCl
 
 
 
