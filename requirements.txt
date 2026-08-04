@@ -1,9 +1,7 @@
-discord.py
+discord.py==2.6.3
+PyNaCl==1.5.0
 Flask
-PyNaCl
 requests
-
-
 
 
 
