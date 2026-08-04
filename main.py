@@ -8,6 +8,12 @@ import re  # для пошуку посилань
 import requests
 import json
 import base64
+import sys
+
+print("=" * 50)
+print("discord.py:", discord.__version__)
+print("Python:", sys.version)
+print("=" * 50)
 
 app = Flask("health")
 
